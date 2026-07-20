@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# next.js build output
+.next/
+
+# environment variables (contains secrets)
+.env.local
+.env
+
+# drizzle migrations
+drizzle/
+
+# runtime state
+.run/
+
+# bun lockfile (regenerated on install)
+bun.lock
+
+# typescript build info
+tsconfig.tsbuildinfo
