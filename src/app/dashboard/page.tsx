@@ -211,10 +211,24 @@ export default async function DashboardPage({
             </Link>
             <Link
               href="/dashboard/subscriptions/new"
-              className="inline-flex items-center rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700"
+              className={`inline-flex items-center rounded-lg px-3 py-1.5 text-sm font-semibold text-white ${
+                activeCount >= 10
+                  ? "bg-gray-400 cursor-not-allowed pointer-events-none opacity-60"
+                  : "bg-indigo-600 hover:bg-indigo-700"
+              }`}
+              aria-disabled={activeCount >= 10}
+              tabIndex={activeCount >= 10 ? -1 : undefined}
             >
               + Add Subscription
             </Link>
+            {activeCount >= 10 && (
+              <Link
+                href="/dashboard/upgrade"
+                className="inline-flex items-center rounded-lg bg-amber-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-amber-600"
+              >
+                Upgrade to add more
+              </Link>
+            )}
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm text-gray-600">{session.user.name}</span>
@@ -262,6 +276,56 @@ export default async function DashboardPage({
             <code className="bg-amber-100 px-1 rounded">DATABASE_URL</code> in{" "}
             <code className="bg-amber-100 px-1 rounded">.env.local</code> to see
             your subscriptions.
+          </div>
+        )}
+
+        {/* Free tier usage indicator */}
+        {!dbError && activeCount >= 7 && (
+          <div className="mt-6">
+            {activeCount < 10 ? (
+              <div className="rounded-lg bg-white border border-gray-200 p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-medium text-gray-700">
+                    You&apos;ve used {activeCount} of 10 free subscriptions
+                  </p>
+                  <span className="text-xs text-gray-500">
+                    {10 - activeCount} remaining
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className={`h-2 rounded-full transition-all ${
+                      activeCount >= 9 ? "bg-amber-500" : "bg-indigo-500"
+                    }`}
+                    style={{ width: `${(activeCount / 10) * 100}%` }}
+                  />
+                </div>
+                <p className="mt-2 text-xs text-gray-500">
+                  <Link
+                    href="/dashboard/upgrade"
+                    className="text-indigo-600 font-medium hover:underline"
+                  >
+                    Upgrade to Pro
+                  </Link>{" "}
+                  for unlimited subscriptions.
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-lg bg-amber-50 border border-amber-300 p-5 text-center">
+                <p className="text-amber-800 font-semibold">
+                  You&apos;ve reached the free tier limit.
+                </p>
+                <p className="text-sm text-amber-700 mt-1">
+                  Upgrade to Pro for unlimited subscriptions.
+                </p>
+                <Link
+                  href="/dashboard/upgrade"
+                  className="mt-3 inline-flex items-center rounded-lg bg-amber-500 px-5 py-2 text-sm font-semibold text-white hover:bg-amber-600"
+                >
+                  Upgrade to Pro
+                </Link>
+              </div>
+            )}
           </div>
         )}
 

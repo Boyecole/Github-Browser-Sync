@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { authOptions } from "@/lib/auth";
 import { db, schema } from "@/lib/db";
+import { eq, sql } from "drizzle-orm";
 
 const CATEGORIES = [
   "Entertainment", "Software", "Productivity", "Cloud Storage",
@@ -57,6 +58,28 @@ export async function POST(request: Request) {
 
   const userId = parseInt(session.user.id, 10);
   const cost = parseFloat(String(costRaw));
+
+  // Enforce free tier limit (10 subscriptions)
+  try {
+    const userSubCount = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.subscriptions)
+      .where(eq(schema.subscriptions.user_id, userId));
+
+    if (userSubCount[0].count >= 10) {
+      return NextResponse.json(
+        {
+          error: "Free tier limit reached",
+          details: [
+            "You've reached the 10 subscription limit. Upgrade to Pro for unlimited subscriptions.",
+          ],
+        },
+        { status: 403 },
+      );
+    }
+  } catch {
+    // If the count query fails (e.g. DB not connected), let the insert attempt proceed
+  }
 
   try {
     const [created] = await db
