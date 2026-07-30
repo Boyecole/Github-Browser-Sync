@@ -70,7 +70,7 @@ function SignInForm() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="text-2xl font-bold text-indigo-600">
-            SubTrack
+            SubTracker
           </Link>
           <h1 className="mt-2 text-2xl font-semibold text-gray-900">
             Sign in to your account

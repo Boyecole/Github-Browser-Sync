@@ -207,7 +207,7 @@ export default async function DashboardPage({
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-xl font-bold text-indigo-600">
-              SubTrack
+              SubTracker
             </Link>
             <Link
               href="/dashboard/subscriptions/new"

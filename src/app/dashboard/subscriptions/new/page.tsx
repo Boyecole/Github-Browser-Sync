@@ -36,7 +36,7 @@ export default async function NewSubscriptionPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <Link href="/dashboard" className="text-xl font-bold text-indigo-600">
-            SubTrack
+            SubTracker
           </Link>
           <Link
             href="/dashboard"

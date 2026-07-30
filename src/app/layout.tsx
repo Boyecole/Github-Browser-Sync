@@ -3,7 +3,7 @@ import "./globals.css";
 import SessionProvider from "@/components/SessionProvider";
 
 export const metadata: Metadata = {
-  title: "SubTrack — Subscription Tracker",
+  title: "SubTracker — Subscription Tracker",
   description: "Track all your subscriptions in one place",
 };
 
