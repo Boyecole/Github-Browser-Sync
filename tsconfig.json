@@ -19,5 +19,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "serve.ts", "vite.config.ts", "vercel-entry.ts", "build-vercel.sh", "go-live.sh", "SITE.md", "site.json", "src/db.ts", "src/router.tsx", "src/routes"]
 }

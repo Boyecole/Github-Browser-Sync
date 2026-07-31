@@ -19,3 +19,15 @@ bun.lock
 
 # typescript build info
 tsconfig.tsbuildinfo
+
+# stale template files (restored by sandbox)
+serve.ts
+vite.config.ts
+vercel-entry.ts
+build-vercel.sh
+go-live.sh
+SITE.md
+site.json
+src/db.ts
+src/router.tsx
+src/routes/
